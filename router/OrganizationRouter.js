@@ -3,6 +3,7 @@ const orgaizationRouter = express.Router();
 const expressAsyncHandler = require('express-async-handler');
 const Organization = require('../models/Organization');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 orgaizationRouter.post(
     '/signup',
@@ -41,7 +42,9 @@ orgaizationRouter.post(
         });
         if(organization){
             if( bcrypt.compareSync(req.body.password, organization.password)){
+                const token = jwt.sign({_id: organization._id},process.env.JWT_SECRET);
                 return res.status(200).send({
+                    token: token,
                     loggedInOrganization:{
                         name: organization.name,
                         email: organization.email,

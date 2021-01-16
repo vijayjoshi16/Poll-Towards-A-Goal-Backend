@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const expressAsyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 userRouter.post(
     '/signup',
@@ -42,7 +43,9 @@ userRouter.post(
         });
         if(user){
             if( bcrypt.compareSync(req.body.password, user.password)){
+                const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
                 return res.status(200).send({
+                    token: token,
                     loggedInUser:{
                         name: user.name,
                         email: user.email,
