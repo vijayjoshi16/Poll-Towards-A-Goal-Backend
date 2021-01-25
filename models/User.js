@@ -22,10 +22,16 @@ const userSchema = new mongoose.Schema({
             ref: "Organization"
         }
     ],
-    polls: [
+    votedToPersonal:[
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Poll"
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"PersonalPoll"
+        }
+    ],
+    votedToOrganization:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"OrganizationPoll"
         }
     ]
 })

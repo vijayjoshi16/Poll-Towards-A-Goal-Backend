@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pollSchema = new mongoose.Schema({
+const personalPollSchema = new mongoose.Schema({
     question:{
         type: String,
         required: true
@@ -26,9 +26,10 @@ const pollSchema = new mongoose.Schema({
             }
         }
     ],
-    pollType:{
-        type: "String"
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
     }
 })
 
-module.exports = mongoose.model("Poll",pollSchema);
+module.exports = mongoose.model("PersonalPoll",personalPollSchema);

@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 const userRouter = require('./router/UserRouter');
 const organizationRouter = require('./router/OrganizationRouter');
 const orgaizationRouter = require('./router/OrganizationRouter');
+const pollRouter = require('./router/PollRouter');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ mongoose.connection.on('error',(err)=>{
 
 app.use("/user", userRouter);
 app.use("/organization",orgaizationRouter);
+app.use("/poll",pollRouter);
 
 app.listen(PORT,()=>{
     console.log("Server started successfully...Listening on port:",PORT);
