@@ -4,7 +4,6 @@ const PersonalPoll = require('../models/PersonalPoll');
 const OrganizationPoll = require('../models/OrganizationPoll');
 const pollRouter = express.Router();
 
-
 pollRouter.post(
     '/createpersonalpoll',
     expressAsyncHandler(async (req,res)=>{
