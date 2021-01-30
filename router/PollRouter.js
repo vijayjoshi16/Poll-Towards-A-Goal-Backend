@@ -48,4 +48,42 @@ pollRouter.post(
     })
 )
 
+pollRouter.get(
+    '/organization/getallpolls',
+    expressAsyncHandler(async (req,res)=>{
+        const allPolls = await OrganizationPoll.find({});
+        return res.status(200).send({polls: allPolls});
+    })
+);
+
+pollRouter.get(
+    '/personal/getallpolls',
+    expressAsyncHandler(async (req,res)=>{
+        const allPolls = await PersonalPoll.find({});
+        return res.status(200).send({polls: allPolls});
+    })
+);
+
+pollRouter.get(
+    '/organization/:id',
+    expressAsyncHandler(async (req,res)=>{
+        const poll = await OrganizationPoll.findById(req.params.id);
+        if(poll){
+            return res.status(200).send({message:"Success",poll: poll});
+        }
+        return res.status(404).send({message:"Could not find the requested resource"});
+    })
+);
+
+pollRouter.get(
+    '/personal/:id',
+    expressAsyncHandler(async (req,res)=>{
+        const poll = await PersonalPoll.findById(req.params.id);
+        if(poll){
+            return res.status(200).send({message:"Success",poll: poll});
+        }
+        return res.status(404).send({message:"Could not find the requested resource"});
+    })
+);
+
 module.exports = pollRouter;
