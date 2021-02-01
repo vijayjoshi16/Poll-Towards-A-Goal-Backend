@@ -3,6 +3,7 @@ const expressAsyncHandler = require('express-async-handler');
 const PersonalPoll = require('../models/PersonalPoll');
 const OrganizationPoll = require('../models/OrganizationPoll');
 const pollRouter = express.Router();
+const User = require('../models/User');
 
 pollRouter.post(
     '/createpersonalpoll',
@@ -85,5 +86,61 @@ pollRouter.get(
         return res.status(404).send({message:"Could not find the requested resource"});
     })
 );
+
+pollRouter.post(
+    '/personal/vote/:id',
+    expressAsyncHandler(async (req,res)=>{
+        try{
+            const poll = await PersonalPoll.findById(req.params.id);
+            if(poll){
+                const userId = req.body.userId;
+                const option = req.body.option;
+                const userData = await User.findById(userId);
+                if(userData.votedToPersonal.includes(req.params.id))
+                return res.status(200).send({message:"Already voted for this poll"});
+                userData.votedToPersonal.push(req.params.id);
+                poll.votes.push({
+                    votedBy: userId,
+                    option: option
+                });
+                const updatedUser = await User.updateOne({_id:userId},{votedToPersonal:userData.votedToPersonal});
+                const updatedPoll = await PersonalPoll.updateOne({_id:req.params.id},{votes:poll.votes});
+                return res.status(200).send({user:updatedUser,poll:updatedPoll});
+            }
+            return res.status(404).send({message:"Could not find the requested resource"});
+        }catch(err){
+            console.log(err)
+            return res.status(500).send({message:"Internal server error"})
+        }
+    })
+)
+
+pollRouter.post(
+    '/organization/vote/:id',
+    expressAsyncHandler(async (req,res)=>{
+        try{
+            const poll = await OrganizationPoll.findById(req.params.id);
+            if(poll){
+                const userId = req.body.userId;
+                const option = req.body.option;
+                const userData = await User.findById(userId);
+                if(userData.votedToOrganization.includes(req.params.id))
+                return res.status(200).send({message:"Already voted for this poll"});
+                userData.votedToOrganization.push(req.params.id);
+                poll.votes.push({
+                    votedBy: userId,
+                    option: option
+                });
+                const updatedUser = await User.updateOne({_id:userId},{votedToOrganization:userData.votedToOrganization});
+                const updatedPoll = await OrganizationPoll.updateOne({_id:req.params.id},{votes:poll.votes});
+                return res.status(200).send({user:updatedUser,poll:updatedPoll});
+            }
+            return res.status(404).send({message:"Could not find the requested resource"});
+        }catch(err){
+            console.log(err)
+            return res.status(500).send({message:"Internal server error"})
+        }
+    })
+)
 
 module.exports = pollRouter;
