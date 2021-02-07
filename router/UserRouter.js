@@ -9,6 +9,7 @@ userRouter.post(
     '/signup',
     expressAsyncHandler(async (req,res)=>{
         const user = await User.findOne({ email: req.body.email});
+        console.log(req.body)
         if(!user){
             const newUser = new User({
                 name: req.body.name,
