@@ -19,7 +19,7 @@ const organizationSchema = new mongoose.Schema({
     polls: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Poll"
+            ref: "OrganizationPoll"
         }
     ]
 });

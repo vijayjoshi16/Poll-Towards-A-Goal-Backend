@@ -42,7 +42,7 @@ pollRouter.post(
                 });
                 const savedPoll = await poll.save();
                 const updateOrganization = await Organization.updateOne({_id:req.body.createdBy},
-                    {$push: {polls: req.body.createdBy}});
+                    {$push: {polls: poll._id}});
                 res.status(200).send({message:"Success!",poll:poll});
             }else{
                 res.status(401).send({message:"Please enter options!"});
@@ -64,7 +64,7 @@ pollRouter.get(
 pollRouter.get(
     '/personal/getallpolls',
     expressAsyncHandler(async (req,res)=>{
-        const allPolls = await PersonalPoll.find({});
+        const allPolls = await PersonalPoll.find({}).populate('createdBy','_id name pic');
         return res.status(200).send({polls: allPolls});
     })
 );

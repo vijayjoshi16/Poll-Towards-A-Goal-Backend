@@ -1,11 +1,12 @@
 const express = require('express');
-const orgaizationRouter = express.Router();
+const organizationRouter = express.Router();
 const expressAsyncHandler = require('express-async-handler');
 const Organization = require('../models/Organization');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-orgaizationRouter.post(
+organizationRouter.post(
     '/signup',
     expressAsyncHandler(async (req,res)=>{
         const organization = await Organization.findOne({ email: req.body.email});
@@ -34,7 +35,7 @@ orgaizationRouter.post(
     })
 )
 
-orgaizationRouter.post(
+organizationRouter.post(
     '/signin',
     expressAsyncHandler(async (req,res)=>{
         const organization = await Organization.findOne({
@@ -67,4 +68,18 @@ orgaizationRouter.post(
     })
 )
 
-module.exports = orgaizationRouter;
+organizationRouter.get(
+    '/:id',
+    expressAsyncHandler(async (req,res)=>{
+        try{
+        const organization = await Organization.findById(req.params.id).populate('polls','question options votes');
+        if(organization)
+        return res.status(200).send({message:"Success",organization: organization});
+        else
+        return res.status(404).send({message:"Could not find the requested resource"});
+        }catch{
+            return res.status(500).send({message:"Internal server error"});
+        }
+    }))
+
+module.exports = organizationRouter;
