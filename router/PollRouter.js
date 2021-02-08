@@ -2,6 +2,7 @@ const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
 const PersonalPoll = require('../models/PersonalPoll');
 const OrganizationPoll = require('../models/OrganizationPoll');
+const Organization = require('../models/Organization');
 const pollRouter = express.Router();
 const User = require('../models/User');
 
@@ -9,6 +10,7 @@ pollRouter.post(
     '/createpersonalpoll',
     expressAsyncHandler(async (req,res)=>{
         if(req.body.question!=""){
+            console.log(req.body)
             if(req.body.options.length){
                 const poll = new PersonalPoll({
                     question: req.body.question,
@@ -39,6 +41,8 @@ pollRouter.post(
                     createdBy: req.body.createdBy
                 });
                 const savedPoll = await poll.save();
+                const updateOrganization = await Organization.updateOne({_id:req.body.createdBy},
+                    {$push: {polls: req.body.createdBy}});
                 res.status(200).send({message:"Success!",poll:poll});
             }else{
                 res.status(401).send({message:"Please enter options!"});
@@ -52,7 +56,7 @@ pollRouter.post(
 pollRouter.get(
     '/organization/getallpolls',
     expressAsyncHandler(async (req,res)=>{
-        const allPolls = await OrganizationPoll.find({});
+        const allPolls = await OrganizationPoll.find({}).populate('createdBy','_id name pic');
         return res.status(200).send({polls: allPolls});
     })
 );
