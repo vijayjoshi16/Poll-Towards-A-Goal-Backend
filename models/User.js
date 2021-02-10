@@ -16,12 +16,6 @@ const userSchema = new mongoose.Schema({
     pic:{
         type: String
     },
-    follows: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Organization"
-        }
-    ],
     votedToPersonal:[
         {
             type:mongoose.Schema.Types.ObjectId,
