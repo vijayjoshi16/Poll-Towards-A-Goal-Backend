@@ -72,7 +72,7 @@ pollRouter.get(
 pollRouter.get(
     '/organization/:id',
     expressAsyncHandler(async (req,res)=>{
-        const poll = await OrganizationPoll.findById(req.params.id);
+        const poll = await OrganizationPoll.findById(req.params.id).populate('createdBy','name');
         if(poll){
             return res.status(200).send({message:"Success",poll: poll});
         }
@@ -83,7 +83,7 @@ pollRouter.get(
 pollRouter.get(
     '/personal/:id',
     expressAsyncHandler(async (req,res)=>{
-        const poll = await PersonalPoll.findById(req.params.id);
+        const poll = await PersonalPoll.findById(req.params.id).populate('createdBy','name');
         if(poll){
             return res.status(200).send({message:"Success",poll: poll});
         }
