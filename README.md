@@ -20,6 +20,10 @@
 
 https://poll-towards-a-goal.netlify.app/
 
+## NOTE
+
+When you'll make your first API request probably through signin or register screen, the very first API call may take some time(somewhere around 8-12s) so please be patient with it. Further API calls will take much lesser time. This does not happen when the app is tested on localhost. But since the backend of this app is currently deployed on heroku, the initial API call takes some time.
+
 ## SCREENSHOTS
 
 ### Explore organization/personal polls
