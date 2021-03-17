@@ -18,7 +18,7 @@
 
 ## DEPLOYED WEBSITE LINK
 
-https://poll-towards-a-goal.netlify.app/
+https://poll-towards-a-goal.vercel.app/
 
 ## NOTE
 
