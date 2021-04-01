@@ -16,6 +16,10 @@
 * See poll results according to the votes given till now
 * Organization Profile/Dashboard
 
+## LINK TO THE FRONT-END REPOSITORY
+
+https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend
+
 ## DEPLOYED WEBSITE LINK
 
 https://poll-towards-a-goal.vercel.app/
