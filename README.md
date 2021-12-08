@@ -1,10 +1,8 @@
-# POLL TOWARDS A GOAL
+<p align="center"><img src="https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend/blob/assets/assets/logopoll.png" width="400px" height="60px"></img></p>
 
-<img src="https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend/blob/assets/assets/logopoll.png" width="400px" height="60px"></img>
+<h2 align="center">An ultimate polling web app built using MERN stack</h2>
 
-### An ultimate polling web app built using MERN stack
-
-<img src="https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend/blob/assets/assets/final_img.png" ></img>
+<p align="center"><img src="https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend/blob/assets/assets/final_img.png" ></img></p>
 
 ## FEATURES
 
@@ -22,11 +20,7 @@ https://github.com/vijayjoshi16/Poll-Towards-A-Goal-Frontend
 
 ## DEPLOYED WEBSITE LINK
 
-https://poll-towards-a-goal.vercel.app/
-
-## NOTE
-
-When you'll make your first API request probably through signin or register screen, the very first API call may take some time(somewhere around 8-12s) so please be patient with it. Further API calls will take much lesser time. This does not happen when the app is tested on localhost. But since the backend of this app is currently deployed on heroku, the initial API call takes some time.
+https://poll-towards-a-goal.netlify.app/
 
 ## SCREENSHOTS
 
